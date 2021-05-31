@@ -1,0 +1,31 @@
+#include "stack.h"
+
+stack::stack(size_t capacity)
+    : array(capacity)
+{
+}
+
+stack::stack(stack& other)
+    : array(other)
+{
+}
+
+size_t stack::size() const
+{
+    return array::size();
+}
+
+void stack::push(ADT* value)
+{
+    array::insert(size(), value);
+}
+
+ADT* stack::pop()
+{
+    return array::erase(size() - 1);
+}
+
+ADT*& stack::operator[](size_t pos)
+{
+    return array::operator[](pos);
+}
