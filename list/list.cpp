@@ -16,7 +16,7 @@ list::list(list& other)
 {
     _size = other._size;
     _root = nullptr;
-    
+
     for (size_t i = 0; i < other._size; i++) {
         insert(i, other[i]);
     }

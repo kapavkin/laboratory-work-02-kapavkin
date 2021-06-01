@@ -38,8 +38,7 @@ size_t queue::size() const
 
 void queue::enqueue(ADT* value)
 {
-    if (_size == _capacity)
-    {
+    if (_size == _capacity) {
         throw std::out_of_range("index out of range");
     }
 
@@ -48,13 +47,12 @@ void queue::enqueue(ADT* value)
 
 ADT* queue::dequeue()
 {
-    if (_size == 0)
-    {
+    if (_size == 0) {
         throw std::out_of_range("index out of range");
     }
 
     ADT* value = _circle[_start];
-    
+
     _start = (_start + 1) % _capacity;
     _size--;
 

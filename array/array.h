@@ -1,9 +1,9 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
-#include <stdexcept>
 #include <algorithm>
 #include <cmath>
+#include <stdexcept>
 
 #include "ADT.h"
 

@@ -1,8 +1,8 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 
 #include "ADT.h"
 
