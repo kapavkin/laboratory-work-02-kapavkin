@@ -11,6 +11,7 @@ public:
     stack(stack&);
 
     size_t size() const;
+    bool is_empty() const;
 
     void push(ADT*);
     ADT* pop();

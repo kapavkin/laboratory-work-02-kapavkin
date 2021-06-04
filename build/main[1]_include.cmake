@@ -1,0 +1,5 @@
+if(EXISTS "/Users/kirillpavkin/Downloads/laboratory-work-02-kapavkin/build/main[1]_tests.cmake")
+  include("/Users/kirillpavkin/Downloads/laboratory-work-02-kapavkin/build/main[1]_tests.cmake")
+else()
+  add_test(main_NOT_BUILT main_NOT_BUILT)
+endif()

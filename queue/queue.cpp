@@ -36,6 +36,11 @@ size_t queue::size() const
     return _size;
 }
 
+bool queue::is_empty() const
+{
+    return _size == 0;
+}
+
 void queue::enqueue(ADT* value)
 {
     if (_size == _capacity) {

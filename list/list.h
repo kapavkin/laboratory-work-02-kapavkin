@@ -1,7 +1,6 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <iostream>
 #include <stdexcept>
 
 #include "ADT.h"
@@ -23,6 +22,7 @@ public:
     virtual ~list();
 
     size_t size() const;
+    bool is_empty() const;
 
     void insert(size_t, ADT*);
     ADT* erase(size_t);

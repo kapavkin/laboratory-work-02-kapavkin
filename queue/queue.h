@@ -16,6 +16,7 @@ public:
 
     size_t capacity() const;
     size_t size() const;
+    bool is_empty() const;
 
     void enqueue(ADT*);
     ADT* dequeue();

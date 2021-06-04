@@ -46,6 +46,11 @@ size_t array::size() const
     return _size;
 }
 
+bool array::is_empty() const
+{
+    return _size == 0;
+}
+
 void array::insert(size_t pos, ADT* value)
 {
     if (pos > _size) {

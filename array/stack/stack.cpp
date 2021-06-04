@@ -15,6 +15,11 @@ size_t stack::size() const
     return array::size();
 }
 
+bool stack::is_empty() const
+{
+    return array::is_empty();
+}
+
 void stack::push(ADT* value)
 {
     array::insert(size(), value);

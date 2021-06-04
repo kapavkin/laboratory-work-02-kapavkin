@@ -34,6 +34,11 @@ size_t list::size() const
     return _size;
 }
 
+bool list::is_empty() const
+{
+    return _size == 0;
+}
+
 void list::insert(size_t pos, ADT* value)
 {
     if (pos > _size) {

@@ -19,6 +19,7 @@ public:
     virtual ~array();
 
     size_t size() const;
+    bool is_empty() const;
 
     void insert(size_t, ADT*);
     ADT* erase(size_t);

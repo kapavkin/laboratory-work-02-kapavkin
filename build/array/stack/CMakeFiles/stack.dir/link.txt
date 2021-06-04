@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -dynamiclib -Wl,-headerpad_max_install_names -o libstack.dylib -install_name @rpath/libstack.dylib CMakeFiles/stack.dir/stack.cpp.o CMakeFiles/stack.dir/__/array.cpp.o 
