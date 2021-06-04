@@ -1,2 +1,0 @@
-/Library/Developer/CommandLineTools/usr/bin/ar qc liblaboratory-work-01-kapavkin.a CMakeFiles/laboratory-work-01-kapavkin.dir/main.cpp.o
-/Library/Developer/CommandLineTools/usr/bin/ranlib liblaboratory-work-01-kapavkin.a
