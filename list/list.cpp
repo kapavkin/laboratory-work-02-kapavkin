@@ -25,7 +25,7 @@ list::list(list& other)
 list::~list()
 {
     for (size_t i = 0; i < _size; i++) {
-        erase(0);
+        remove(0);
     }
 }
 
@@ -36,7 +36,7 @@ size_t list::size() const
 
 bool list::is_empty() const
 {
-    return _size == 0;
+    return _root == nullptr;
 }
 
 void list::insert(size_t pos, ADT* value)
@@ -67,7 +67,7 @@ void list::insert(size_t pos, ADT* value)
     _size++;
 }
 
-ADT* list::erase(size_t pos)
+ADT* list::remove(size_t pos)
 {
     if (pos + 1 > _size) {
         throw std::out_of_range("index out of range");

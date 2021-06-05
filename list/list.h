@@ -25,7 +25,7 @@ public:
     bool is_empty() const;
 
     void insert(size_t, ADT*);
-    ADT* erase(size_t);
+    ADT* remove(size_t);
 
     ADT*& operator[](size_t);
 };

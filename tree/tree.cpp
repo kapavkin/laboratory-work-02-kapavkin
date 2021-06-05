@@ -1,53 +1,63 @@
 #include "tree.h"
 
-tree::node::node(int key, ADT* value, bool color, size_t size)
+template <typename K>
+tree<K>::node::node(K key, ADT* value, size_t size, bool color)
     : _key(key)
     , _value(value)
-    , _color(color)
+    , _left(nullptr)
+    , _right(nullptr)
     , _size(size)
+    , _color(color)
 {
 }
 
-bool tree::is_red(node* n) const
+template <typename K>
+bool tree<K>::is_red(node* n) const
 {
-    if (n == nullptr)
+    if (n == nullptr) {
         return BLACK;
-    else
+    } else {
         return n->_color == RED;
+    }
 }
 
-size_t tree::size(node* n) const
+template <typename K>
+size_t tree<K>::size(node* n) const
 {
-    if (n == nullptr)
+    if (n == nullptr) {
         return 0;
-    else
+    } else {
         return n->_size;
+    }
 }
 
-bool tree::contains(node* n, int key) const
+template <typename K>
+bool tree<K>::contains(node* n, K key) const
 {
     while (n != nullptr) {
-        if (key < n->_key)
+        if (key < n->_key) {
             n = n->_left;
-        else if (key > n->_key)
+        } else if (key > n->_key) {
             n = n->_right;
-        else
+        } else {
             return true;
+        }
     }
 
     return false;
 }
 
-tree::node* tree::insert(node* n, int key, ADT* value)
+template <typename K>
+typename tree<K>::node* tree<K>::put(node* n, K key, ADT* value)
 {
     if (n == nullptr) {
-        return new node(key, value, RED, 1);
+        return new node(key, value, 1, RED);
     }
 
     if (key < n->_key) {
-        n->_left = insert(n->_left, key, value);
+        n->_left = put(n->_left, key, value);
     } else if (key > n->_key) {
-        n->_right = insert(n->_right, key, value);
+        n->_right = put(n->_right, key, value);
     } else {
         n->_value = value;
     }
@@ -69,13 +79,14 @@ tree::node* tree::insert(node* n, int key, ADT* value)
     return n;
 }
 
-tree::node* tree::erase(node* n, int key)
+template <typename K>
+typename tree<K>::node* tree<K>::remove(node* n, K key)
 {
     if (key < n->_key) {
         if (!is_red(n->_left) && !is_red(n->_left->_left)) {
             n = move_red_left(n);
         }
-        n->_left = erase(n->_left, key);
+        n->_left = remove(n->_left, key);
     } else {
         if (is_red(n->_left)) {
             n = rotate_right(n);
@@ -93,35 +104,39 @@ tree::node* tree::erase(node* n, int key)
             node* temp = min(n->_right);
             n->_key = temp->_key;
             n->_value = temp->_value;
-            n->_right = delete_min(n->_right);
+            n->_right = remove_min(n->_right);
         } else {
-            n->_right = erase(n->_right, key);
+            n->_right = remove(n->_right, key);
         }
     }
 
     return balance(n);
 }
 
-ADT*& tree::get(node* n, int key)
+template <typename K>
+ADT*& tree<K>::get(node* n, K key)
 {
     while (n != nullptr) {
-        if (key < n->_key)
+        if (key < n->_key) {
             n = n->_left;
-        else if (key > n->_key)
+        } else if (key > n->_key) {
             n = n->_right;
-        else
+        } else {
             return n->_value;
+        }
     }
 }
 
-void tree::flip_colors(node* n)
+template <typename K>
+void tree<K>::flip_colors(node* n)
 {
     n->_color = !n->_color;
     n->_left->_color = !n->_left->_color;
     n->_right->_color = !n->_right->_color;
 }
 
-tree::node* tree::rotate_left(node* n)
+template <typename K>
+typename tree<K>::node* tree<K>::rotate_left(node* n)
 {
     node* temp = n->_right;
     n->_right = temp->_left;
@@ -134,7 +149,8 @@ tree::node* tree::rotate_left(node* n)
     return temp;
 }
 
-tree::node* tree::rotate_right(node* n)
+template <typename K>
+typename tree<K>::node* tree<K>::rotate_right(node* n)
 {
     node* temp = n->_left;
     n->_left = temp->_right;
@@ -147,7 +163,8 @@ tree::node* tree::rotate_right(node* n)
     return temp;
 }
 
-tree::node* tree::move_red_left(node* n)
+template <typename K>
+typename tree<K>::node* tree<K>::move_red_left(node* n)
 {
     flip_colors(n);
     if (is_red(n->_right->_left)) {
@@ -159,18 +176,76 @@ tree::node* tree::move_red_left(node* n)
     return n;
 }
 
-tree::node* tree::move_red_right(node* n)
+template <typename K>
+typename tree<K>::node* tree<K>::move_red_right(node* n)
 {
     flip_colors(n);
     if (is_red(n->_left->_left)) {
-        n = rotate_left(n);
+        n = rotate_right(n);
         flip_colors(n);
     }
 
     return n;
 }
 
-tree::node* tree::balance(node* n)
+template <typename K>
+typename tree<K>::node* tree<K>::min(node* n)
+{
+    if (n->_left == nullptr) {
+        return n;
+    } else {
+        return min(n->_left);
+    }
+}
+
+template <typename K>
+typename tree<K>::node* tree<K>::max(node* n)
+{
+    if (n->_right == nullptr) {
+        return n;
+    } else {
+        return max(n->_right);
+    }
+}
+
+template <typename K>
+typename tree<K>::node* tree<K>::remove_min(node* n)
+{
+    if (n->_left == nullptr) {
+        return nullptr;
+    }
+
+    if (!is_red(n->_left) && !is_red(n->_left->_left)) {
+        n = move_red_left(n);
+    }
+
+    n->_left = remove_min(n->_left);
+
+    return balance(n);
+}
+
+template <typename K>
+typename tree<K>::node* tree<K>::remove_max(node* n)
+{
+    if (is_red(n->_left)) {
+        n = rotate_right(n);
+    }
+
+    if (n->_right == nullptr) {
+        return nullptr;
+    }
+
+    if (!is_red(n->_right) && !is_red(n->_right->_left)) {
+        n = move_red_right(n);
+    }
+
+    n->_right = remove_max(n->_right);
+
+    return balance(n);
+}
+
+template <typename K>
+typename tree<K>::node* tree<K>::balance(node* n)
 {
     if (is_red(n->_right) && !is_red(n->_left)) {
         n = rotate_left(n);
@@ -189,114 +264,73 @@ tree::node* tree::balance(node* n)
     return n;
 }
 
-tree::node* tree::min(node* n)
-{
-    if (n->_left == nullptr)
-        return n;
-    else
-        return min(n->_left);
-}
-
-tree::node* tree::max(node* n)
-{
-    if (n->_right == nullptr)
-        return n;
-    else
-        return max(n->_right);
-}
-
-tree::node* tree::delete_min(node* n)
-{
-    if (n->_left == nullptr) {
-        return nullptr;
-    }
-
-    if (!is_red(n->_left) && !is_red(n->_left->_left)) {
-        n = move_red_left(n);
-    }
-
-    n->_left = delete_min(n->_left);
-
-    return balance(n);
-}
-
-tree::node* tree::delete_max(node* n)
-{
-    if (is_red(n->_left)) {
-        n = rotate_right(n);
-    }
-
-    if (n->_right == nullptr) {
-        return nullptr;
-    }
-
-    if (!is_red(n->_right) && !is_red(n->_right->_left)) {
-        n = move_red_right(n);
-    }
-
-    n->_right = delete_max(n->_right);
-
-    return balance(n);
-}
-
-tree::tree()
+template <typename K>
+tree<K>::tree()
     : _root(nullptr)
 {
 }
 
-tree::tree(tree& other)
+template <typename K>
+tree<K>::tree(tree& other)
     : _root(nullptr)
 {
 }
 
-tree::~tree()
+template <typename K>
+tree<K>::~tree()
 {
 }
 
-size_t tree::size() const
+template <typename K>
+size_t tree<K>::size() const
 {
     return size(_root);
 }
 
-bool tree::is_empty() const
+template <typename K>
+bool tree<K>::is_empty() const
 {
-    return size() == 0;
+    return _root == nullptr;
 }
 
-bool tree::contains(int key) const
+template <typename K>
+bool tree<K>::contains(K key) const
 {
     return contains(_root, key);
 }
 
-void tree::insert(int key, ADT* value)
+template <typename K>
+void tree<K>::put(K key, ADT* value)
 {
     if (value == nullptr) {
-        erase(key);
+        remove(key);
         return;
     }
 
-    _root = insert(_root, key, value);
+    _root = put(_root, key, value);
     _root->_color = BLACK;
 }
 
-void tree::erase(int key)
+template <typename K>
+void tree<K>::remove(K key)
 {
     if (!contains(key)) {
-        throw std::invalid_argument("key is not exist");
+        return;
     }
 
     if (!is_red(_root->_left) && !is_red(_root->_right)) {
         _root->_color = RED;
     }
 
-    _root = erase(_root, key);
+    _root = remove(_root, key);
 
     if (!is_empty()) {
         _root->_color = BLACK;
     }
 }
 
-ADT*& tree::operator[](int key)
+template <typename K>
+ADT*& tree<K>::operator[](K key)
 {
     if (!contains(key)) {
         throw std::invalid_argument("key is not exist");
@@ -304,3 +338,5 @@ ADT*& tree::operator[](int key)
 
     return get(_root, key);
 }
+
+template class tree<int>;

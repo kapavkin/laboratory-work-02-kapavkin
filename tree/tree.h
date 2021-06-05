@@ -1,23 +1,25 @@
 #ifndef TREE_H
 #define TREE_H
 
+#include <iostream>
 #include <stdexcept>
 
 #include "ADT.h"
 
+template <typename K>
 class tree {
     static const bool RED = true;
     static const bool BLACK = false;
 
     struct node {
-        int _key;
+        K _key;
         ADT* _value;
         node* _left;
         node* _right;
-        bool _color;
         size_t _size;
+        bool _color;
 
-        node(int, ADT*, bool, size_t);
+        node(K, ADT*, size_t, bool);
     };
 
     node* _root;
@@ -25,23 +27,23 @@ class tree {
     bool is_red(node*) const;
 
     size_t size(node*) const;
-    bool contains(node*, int) const;
+    bool contains(node*, K) const;
 
-    node* insert(node*, int, ADT*);
-    node* erase(node*, int);
+    node* put(node*, K, ADT*);
+    node* remove(node*, K);
 
-    ADT*& get(node*, int);
+    ADT*& get(node*, K);
 
     void flip_colors(node*);
     node* rotate_left(node*);
     node* rotate_right(node*);
     node* move_red_left(node*);
     node* move_red_right(node*);
-    node* balance(node*);
     node* min(node*);
     node* max(node*);
-    node* delete_min(node*);
-    node* delete_max(node*);
+    node* remove_min(node*);
+    node* remove_max(node*);
+    node* balance(node*);
 
 public:
     tree();
@@ -50,12 +52,12 @@ public:
 
     size_t size() const;
     bool is_empty() const;
-    bool contains(int) const;
+    bool contains(K) const;
 
-    void insert(int, ADT*);
-    void erase(int);
+    void put(K, ADT*);
+    void remove(K);
 
-    ADT*& operator[](int);
+    ADT*& operator[](K);
 };
 
 #endif

@@ -51,7 +51,7 @@ TEST(array, insert)
     ASSERT_EQ(arr[2], &adt4);
 }
 
-TEST(array, erase)
+TEST(array, remove)
 {
     array arr;
 
@@ -70,15 +70,15 @@ TEST(array, erase)
     matrix adt4;
     arr.insert(2, &adt4);
 
-    arr.erase(4);
+    arr.remove(4);
 
     ASSERT_NE(arr[3], &adt2);
 
-    arr.erase(0);
+    arr.remove(0);
 
     ASSERT_NE(arr[0], &adt3);
 
-    arr.erase(1);
+    arr.remove(1);
 
     ASSERT_NE(arr[0], &adt4);
     ASSERT_NE(arr[1], &adt4);
@@ -189,7 +189,7 @@ TEST(list, insert)
     ASSERT_EQ(lst[2], &adt4);
 }
 
-TEST(list, erase)
+TEST(list, remove)
 {
     list lst;
 
@@ -208,15 +208,15 @@ TEST(list, erase)
     matrix adt4;
     lst.insert(2, &adt4);
 
-    lst.erase(4);
+    lst.remove(4);
 
     ASSERT_NE(lst[3], &adt2);
 
-    lst.erase(0);
+    lst.remove(0);
 
     ASSERT_NE(lst[0], &adt3);
 
-    lst.erase(1);
+    lst.remove(1);
 
     ASSERT_NE(lst[0], &adt4);
     ASSERT_NE(lst[1], &adt4);
@@ -328,72 +328,68 @@ TEST(queue, oversize)
 namespace tree_test {
 TEST(tree, constructor)
 {
-    tree tr0;
-    tree tr1(tr0);
+    tree<int> tr0;
+    //tree<int> tr1(tr0);
 }
 
-TEST(tree, insert)
+TEST(tree, put)
 {
-    tree tr;
+    tree<int> tr;
 
     date adt0;
-    tr.insert(0, &adt0);
+    tr.put(0, &adt0);
 
     ASSERT_EQ(tr[0], &adt0);
 
     date adt1;
-    tr.insert(1, &adt1);
+    tr.put(1, &adt1);
 
     ASSERT_EQ(tr[0], &adt0);
     ASSERT_EQ(tr[1], &adt1);
 
     number adt2;
-    tr.insert(2, &adt2);
+    tr.put(2, &adt2);
 
     ASSERT_EQ(tr[2], &adt2);
 
     adam adt3;
-    tr.insert(0, &adt3);
+    tr.put(0, &adt3);
 
     ASSERT_EQ(tr[0], &adt3);
 
     matrix adt4;
-    tr.insert(2, &adt4);
+    tr.put(2, &adt4);
 
     ASSERT_EQ(tr[2], &adt4);
 }
 
-TEST(tree, erase)
+TEST(tree, remove)
 {
-    tree tr;
+    tree<int> tr;
 
     date adt0;
-    tr.insert(0, &adt0);
+    tr.put(0, &adt0);
 
     adam adt1;
-    tr.insert(1, &adt1);
+    tr.put(1, &adt1);
 
     number adt2;
-    tr.insert(2, &adt2);
+    tr.put(2, &adt2);
 
     adam adt3;
-    tr.insert(0, &adt3);
+    tr.put(0, &adt3);
 
     matrix adt4;
-    tr.insert(2, &adt4);
+    tr.put(2, &adt4);
 
-    tr.erase(4);
+    tr.remove(2);
 
-    ASSERT_NE(tr[3], &adt2);
+    ASSERT_FALSE(tr.contains(2));
+    ASSERT_TRUE(tr.contains(0));
 
-    tr.erase(0);
+    tr.remove(0);
 
-    ASSERT_NE(tr[0], &adt3);
-
-    tr.erase(1);
-
-    ASSERT_NE(tr[0], &adt4);
-    ASSERT_NE(tr[1], &adt4);
+    ASSERT_FALSE(tr.contains(0));
 }
 }
 

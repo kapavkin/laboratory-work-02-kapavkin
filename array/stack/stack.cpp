@@ -27,7 +27,7 @@ void stack::push(ADT* value)
 
 ADT* stack::pop()
 {
-    return array::erase(size() - 1);
+    return array::remove(size() - 1);
 }
 
 ADT*& stack::operator[](size_t pos)

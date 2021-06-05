@@ -84,7 +84,7 @@ void array::insert(size_t pos, ADT* value)
     _size++;
 }
 
-ADT* array::erase(size_t pos)
+ADT* array::remove(size_t pos)
 {
     if (pos + 1 > _size) {
         throw std::out_of_range("index out of range");
