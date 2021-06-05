@@ -329,7 +329,7 @@ namespace tree_test {
 TEST(tree, constructor)
 {
     tree<int> tr0;
-    //tree<int> tr1(tr0);
+    tree<int> tr1(tr0);
 }
 
 TEST(tree, put)
