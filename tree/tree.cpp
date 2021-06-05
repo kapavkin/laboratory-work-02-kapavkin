@@ -12,6 +12,32 @@ tree<K>::node::node(K key, ADT* value, size_t size, bool color)
 }
 
 template <typename K>
+void tree<K>::copy(node* from, node* to)
+{
+    if (from == nullptr) {
+        return;
+    }
+
+    to = new node(from->_key, from->_value, from->_size, from->_color);
+
+    copy(from->_left, to->_left);
+    copy(from->_right, to->_right);
+}
+
+template <typename K>
+void tree<K>::clear(node* n)
+{
+    if (n == nullptr) {
+        return;
+    }
+
+    clear(n->_left);
+    clear(n->_right);
+
+    delete n;
+}
+
+template <typename K>
 bool tree<K>::is_red(node* n) const
 {
     if (n == nullptr) {
@@ -274,11 +300,13 @@ template <typename K>
 tree<K>::tree(tree& other)
     : _root(nullptr)
 {
+    copy(other._root, _root);
 }
 
 template <typename K>
 tree<K>::~tree()
 {
+    clear(_root);
 }
 
 template <typename K>

@@ -24,6 +24,9 @@ class tree {
 
     node* _root;
 
+    void copy(node*, node*);
+    void clear(node*);
+
     bool is_red(node*) const;
 
     size_t size(node*) const;
