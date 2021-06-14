@@ -367,4 +367,4 @@ ADT*& tree<K>::operator[](K key)
     return get(_root, key);
 }
 
-template class tree<int>;
+template class tree<size_t>;

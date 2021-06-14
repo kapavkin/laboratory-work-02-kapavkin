@@ -328,13 +328,13 @@ TEST(queue, oversize)
 namespace tree_test {
 TEST(tree, constructor)
 {
-    tree<int> tr0;
-    tree<int> tr1(tr0);
+    tree<size_t> tr0;
+    tree<size_t> tr1(tr0);
 }
 
 TEST(tree, put)
 {
-    tree<int> tr;
+    tree<size_t> tr;
 
     date adt0;
     tr.put(0, &adt0);
@@ -365,7 +365,7 @@ TEST(tree, put)
 
 TEST(tree, remove)
 {
-    tree<int> tr;
+    tree<size_t> tr;
 
     date adt0;
     tr.put(0, &adt0);

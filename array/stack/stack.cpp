@@ -30,6 +30,16 @@ ADT* stack::pop()
     return array::remove(size() - 1);
 }
 
+void stack::push_front(ADT* value)
+{
+    array::insert(0, value);
+}
+
+ADT* stack::pop_front()
+{
+    return array::remove(0);
+}
+
 ADT*& stack::operator[](size_t pos)
 {
     return array::operator[](pos);

@@ -16,6 +16,9 @@ public:
     void push(ADT*);
     ADT* pop();
 
+    void push_front(ADT*);
+    ADT* pop_front();
+
     ADT*& operator[](size_t);
 };
 
