@@ -2,8 +2,8 @@
 
 queue::queue(size_t capacity)
 {
-    _capacity = capacity;
-    _circle = new ADT*[capacity];
+    _capacity = capacity + 1;
+    _circle = new ADT*[capacity + 1];
     _start = 0;
     _size = 0;
 }
